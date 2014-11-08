@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:tiles="http://www.thymeleaf.org"
+    th:lang="${#locale.language}">
+
+
+<head th:include="fragment/headTag :: headTag">
+    <title>demonstration application</title>
+   <link rel="shortcut icon" type="image/png" th:href="@{/favicon}"></link>
+		<title th:text="${title}">(title)</title>
+		<link th:href="@{/assets/bootstrap/3.2.0/css/bootstrap.css}" rel="stylesheet"></link>
+		<link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap/3.2.0/css/bootstrap.min.css}" />
+		<script type="text/javascript" th:href="@{/assets/bootstrap/3.2.0/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:href="@{/assets/jquery/2.1.1/jquery.js}"></script>   
+</head>
+
+<body th:fragment="nav">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" >
+      <div class="navbar-inner">
+        <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand"  href="#" th:href="@{/}"><span class="glyphicon glyphicon-home"></span>Home</a>
+ 
+  </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+             
+              <li class="dropdown">
+                 <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>Profil : <b class="caret"></b></a>
+                      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+                              
+                                <li role="presentation" class="dropdown-header">User profile</li>
+                                <li><a href="#" th:href="@{/userProfile/}"><span class="glyphicon glyphicon-user"></span>Wyświetl profil</a></li>
+                                <li><a href="#" th:href="@{/userProfile/add}"><span class="glyphicon glyphicon-plus"></span>Dodaj  profil</a></li>
+                                 <li role="presentation" class="divider"></li>
+                                 <li role="presentation" class="dropdown-header">User action</li>
+                                <li><a href="#"><span class="glyphicon glyphicon-lock"></span>Blokuj użytkownika</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-lock"></span>Odblokuj użytkownika</a></li>
+                                  <li role="presentation" class="divider"></li>
+                                 <li role="presentation" class="dropdown-header">Statistics</li>
+                                <li><a href="#"><span class="glyphicon glyphicon-stats"></span>Statystyki</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-stats"></span>Pokaż zalogowanych</a></li>
+                      </ul>
+                 
+                 </li>
+              <li class="divider-vertical"></li>  
+              <li class="dropdown">
+                 <a href="#" th:href="@{/userProfile/add}" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>Języki<b class="caret"></b></a>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+                                <li><a href="?lang=pl"><span class="glyphicon glyphicon-globe"></span>pl</a></li>
+                                <li class="divider"></li>
+                                <li><a href="?lang=en"><span class="glyphicon glyphicon-globe"></span>en</a></li>
+                            </ul>
+              </li>
+            
+           
+               
+                <li ><a href="#" th:href="@{/}"><span class="glyphicon glyphicon-info-sign"  data-toggle="modal" data-target="#myModal"></span>PoC</a></li>
+                <li class="divider-vertical" />
+                
+                 
+               <li class="divider-vertical" />
+					
+				</ul>
+           
+          
+        </div>
+      </div>
+    </div>
+      
+       
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script  src="../../../assets/js/bootstrap.js" th:src="@{/assets/bootstrap/3.2.0/js/bootstrap.js}"/>
+     <script  src="../../../assets/js/jquery.js" th:src="@{/assets/jquery/2.1.1/jquery.js}"/>
+     
+  </body>
+</html>
