@@ -29,6 +29,7 @@ public class CountryController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String getAllCountry(Model model) {
         model.addAttribute(countryRepository.findAll());
+        log.info("+++++++        {}",model);
         return COUNTRY_VIEW;
     }
     @RequestMapping(method = RequestMethod.GET)
