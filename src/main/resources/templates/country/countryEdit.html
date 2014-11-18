@@ -17,10 +17,32 @@
 
 <br />
 <br />
-<form th:action="@{/country}" th:object="${country}" method="post">
-      <input type="text" th:field="*{name}" />
-
-      <input type="submit" value="save" />
+<form th:action="@{/country}" th:object="${country}" method="post" class="form-horizontal">
+<fieldset>
+  <legend>Here</legend>
+      <input type="hidden" th:field="*{id}" />
+       <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error has-feedback'">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-06">
+               <input type="text" id="name" name="name" th:field="*{name}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block">error!</span>
+         </div>
+        </div>
+      <div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error has-feedback'">
+        <label for="code" class="col-sm-2 control-label">Code</label>
+          <div class="col-sm-06">
+               <input type="text" id="code" name="code" th:field="*{code}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="help-block">error!</span>
+         </div>
+        </div>
+      
+     <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <button type="submit" class="btn btn-primary">save</button>
+           </div>
+    </div>
+     
+      </fieldset>
     </form>
 <br />
 
