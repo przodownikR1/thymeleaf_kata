@@ -17,15 +17,12 @@
 
 <br />
 <br />
-<p th:utext="#{hello}">country !</p>
 <table border="1">
 <tr><th>Name</th><th>Edit</th><th>Delete</th></tr>
 <tr th:each="country : ${countryList}">
-
-    
-
   <td th:text="${country.name}"/>
- 
+  <td><a href="edit.html" th:href="@/country/">edit</a> </td>
+  <td><a href="#" th:text="#{account.view.changePassword}" th:href="@{/account/changepassword}">Change password</a></td>
  </tr>
 
 </table>

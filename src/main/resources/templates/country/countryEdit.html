@@ -17,8 +17,13 @@
 
 <br />
 <br />
-<p th:utext="#{hello}">country edit !</p>
+<form th:action="@{/country}" th:object="${country}" method="post">
+      <input type="text" th:field="*{name}" />
+
+      <input type="submit" value="save" />
+    </form>
 <br />
+
 <br />
 <br />
 <br />

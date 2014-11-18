@@ -16,5 +16,7 @@ public class Country extends PKEntity {
 
     private static final long serialVersionUID = 4734500867141934540L;
     private String name;
+    
+    private String code;
 
 }
