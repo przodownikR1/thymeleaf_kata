@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:tiles="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
 
 
 <head th:include="fragment/headTag :: headTag">
@@ -11,30 +11,42 @@
 
 
 <body>
-    <div th:include="fragment/nav :: nav" />
+	<div th:include="fragment/nav :: nav" />
 </body>
 <br />
 
 <br />
 <br />
- <div class="col-sm-6">
-<table border="1" class="table table-striped table-bordered table-condensed">
-<caption th:text="#{country.name}">New User</caption>
-<thead>
-<tr><th th:text="#{country.id}">Id</th><th th:text="#{country.name}">Name</th><th th:text="#{country.code}">Code</th><th th:text="#{edit.country.message}">Edit</th><th th:text="#{delete.country.message}">Delete</th></tr>
-</thead>
-<tbody>
-<tr th:each="country : ${countryList}">
-  <td th:disabled="true" th:text="${country.id}" />
-   <td th:text="${country.name}"/>
-   <td th:text="${country.code}"/>
-  <td><a href="#" th:text="#{edit.country.message}" th:href="@{'/country/' + ${country.id}}">edit</a> </td>
-  <td><a href="#" th:text="#{delete.country.message}" th:href="@{'/country/delete/' + ${country.id}}">delete</a></td>
- </tr>
-</tbody>
-</table>
+<div class="col-sm-6">
+	<table border="1"
+		class="table table-striped table-bordered table-condensed">
+		<caption th:text="#{country.name}">New User</caption>
+		<thead>
+			<tr>
+				<th th:text="#{country.id}">Id</th>
+				<th th:text="#{country.name}">Name</th>
+				<th th:text="#{country.code}">Code</th>
+				<th th:text="#{edit.country.message}">Edit</th>
+				<th th:text="#{delete.country.message}">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="country : ${countryList}">
+				<td th:disabled="true" th:text="${country.id}" />
+				<td th:text="${country.name}" />
+				<td th:text="${country.code}" />
+				<td><a class="btn" href="#"
+					th:href="@{'/country/' + ${country.id}}"><span
+						class="glyphicon glyphicon-edit"></span></a></td>
+
+				<td><a class="btn"
+					th:href="@{'/country/delete/'+${country.id}+}"><span
+						class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
- 
+
 
 <div th:include="fragment/footer :: footer" />
 </html>
