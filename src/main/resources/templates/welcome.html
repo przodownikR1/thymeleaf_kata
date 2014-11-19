@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:tiles="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:tiles="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
 
 
 <head th:include="fragment/headTag :: headTag">
-<title>thymeleaf-kata</title>
+<title>welcome</title>
 </head>
 
 
 <body>
-	<div th:include="fragment/nav :: nav" />
+    <div th:include="fragment/nav :: nav" />
 </body>
 <br />
 
 <br />
 <br />
-<p th:utext="#{hello}">Hello world !</p>
+
 <br />
 <br />
+<p th:text="${message}">message ..</p>
 <br />
 <br />
 <br />

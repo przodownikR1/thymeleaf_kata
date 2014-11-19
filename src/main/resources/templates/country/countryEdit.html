@@ -17,21 +17,25 @@
 
 <br />
 <br />
-<div class="container-fluid">
+<div class="container">
+
+ <div class="row">
+ 
+<div class="col-lg-8">
 <form th:action="@{/country}" th:object="${country}" method="post" class="form-horizontal">
 <fieldset>
-  <legend>Here</legend>
+  <legend th:text="#{nav.country}">Country</legend>
       <input type="hidden" th:field="*{id}" />
        <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error has-feedback'">
-        <label for="name" class="col-sm-2 control-label">Name</label>
-          <div class="col-sm-06">
+        <label for="name" class="col-sm-2 control-label" th:text="#{country.name}">Name</label>
+          <div class="col-xs-3">
                <input type="text" id="name" name="name" th:field="*{name}" class="form-control" value="ee"/>
                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block">error!</span>
          </div>
         </div>
       <div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error has-feedback'">
-        <label for="code" class="col-sm-2 control-label">Code</label>
-          <div class="col-sm-06">
+        <label for="code" class="col-sm-2 control-label" th:text="#{country.code}">Code</label>
+          <div class="col-xs-3">
                <input type="text" id="code" name="code" th:field="*{code}" class="form-control" value="ee"/>
                 <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="help-block">error!</span>
          </div>
@@ -46,6 +50,10 @@
       </fieldset>
     </form>
     </div>
+</div>
+</div>
+    
+    
 <br />
 
 <br />

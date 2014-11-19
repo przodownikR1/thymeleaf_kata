@@ -14,11 +14,7 @@ class HelloController {
     @Value("${application.message:Hello World}")
     private String message ;
     
-    @RequestMapping("/")
-    public String hi() {
-        return "hi!!";
-    }
-    
+  
     @RequestMapping("/json")
     public @ResponseBody Map<String, String> json() {
 

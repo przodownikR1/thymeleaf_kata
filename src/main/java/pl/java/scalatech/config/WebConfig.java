@@ -58,6 +58,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
+
     @Bean(name = AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -66,7 +67,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-   
+
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver clr = new CookieLocaleResolver();
@@ -80,13 +81,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         lci.setParamName("lang");
         return lci;
     }
-   
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(31556926);
         registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
         registry.addResourceHandler("/images/**").addResourceLocations("/images/").setCachePeriod(31556926);
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("WEB-INF/static/favicon.ico");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
 
     }
@@ -94,23 +95,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/welcome").setViewName("welcome");
-        registry.addViewController("/").setViewName("welcome"); 
+        registry.addViewController("/").setViewName("welcome");
+        registry.addViewController("/bootstrap").setViewName("bootstrap");
+        registry.addViewController("/form").setViewName("form");
+        registry.addViewController("/button").setViewName("button");
+        registry.addViewController("/nav").setViewName("nav");
+        registry.addViewController("/code").setViewName("code");
         registry.addViewController("/accessdenied").setViewName("accessdenied.html");
     }
-
- 
-
-    /*
-     * @Bean
-     * public FormattingConversionService conversionService() {
-     * DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
-     * conversionService.addFormatterForFieldAnnotation(new NumberFormatAnnotationFormatterFactory());
-     * DateFormatterRegistrar registrar = new DateFormatterRegistrar();
-     * registrar.setFormatter(new DateFormatter("yyyy-MM-dd"));
-     * registrar.registerFormatters(conversionService);
-     * return conversionService;
-     * }
-     */
 
     @Bean
     public TemplateResolver templateResolver() {
@@ -121,11 +113,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         List<String> profiles = Arrays.asList(env.getActiveProfiles());
         if (profiles.contains("dev")) {
             templateResolver.setCacheable(false);
-            log.info("++++ templateResolver cache off ... -> dev");
+            log.info("++++                    templateResolver cache off ... -> dev");
 
         }
-        // TODO
-        templateResolver.setCacheable(false);
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setOrder(2);
         return templateResolver;
@@ -152,13 +142,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return localValidatorFactoryBean;
     }
 
-    @Controller
-    static class FaviconController {
-        @RequestMapping("favicon.ico")
-        String favicon() {
-            return "forward:/resources/images/favicon.ico";
-        }
-    }
+  
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {

@@ -16,8 +16,7 @@ public class ThymeLeafPoc extends SpringBootServletInitializer {
         return application.sources(ThymeLeafPoc.class);
     }
     
-    
-
+   
     public static void main(String[] args) {
         SpringApplication.run(ThymeLeafPoc.class, args);
     }
