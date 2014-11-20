@@ -22,12 +22,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 @EnableTransactionManagement
 @PropertySource("classpath:ds.properties")
 @Import(value = { PropertiesLoader.class })
 @EnableJpaRepositories("pl.java.scalatech.repository")
-@Profile(value="dev")
-public class DsConfig {
+@Profile(value="test")
+public class DsConfigEmbedded {
     @Value("${hibernate.dialect}")
     private String dialect;
     @Value("${spring.jpa.show-sql}")
@@ -37,34 +38,18 @@ public class DsConfig {
     @Value("${hibernate.show.sql}")
     private boolean formatSql;
 
-       
+    
     @Bean
-    @DependsOn(value = "h2Server")
-    DataSource dataSource(Server h2Server) {
-        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-        dataSource.setDriverClass(org.h2.Driver.class);
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
-        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/mem:przodownik;DB_CLOSE_DELAY=-1");
-        return dataSource;
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
-
-    @Bean(name = "h2Server", initMethod = "start", destroyMethod = "stop")
-    @DependsOn(value = "h2WebServer")
-    public org.h2.tools.Server createTcpServer() throws SQLException {
-        return org.h2.tools.Server.createTcpServer("-tcp,-tcpAllowOthers,-tcpPort,9092".split(","));
-    }
-
-    @Bean(name = "h2WebServer", initMethod = "start", destroyMethod = "stop")
-    public org.h2.tools.Server createWebServer() throws SQLException {
-        return org.h2.tools.Server.createWebServer("-web,-webAllowOthers,-webPort,8082".split(","));
-    }
-
+    
+ 
     @Bean
     @DependsOn(value = "dataSource")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws SQLException {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource(createTcpServer()));
+        entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManagerFactoryBean.setPackagesToScan("pl.java.scalatech.domain");
         entityManagerFactoryBean.setJpaProperties(jpaProperties());
@@ -89,7 +74,7 @@ public class DsConfig {
     public JpaTransactionManager transactionManager() throws SQLException {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-        transactionManager.setDataSource(dataSource(createTcpServer()));
+        transactionManager.setDataSource(dataSource());
         return transactionManager;
     }
 
