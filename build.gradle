@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.1.8.RELEASE'
+        springBootVersion = '1.1.9.RELEASE'
         lombokVersion = "1.12.4"
         guavaVersion = "16.0.1"
         festAssertVersion = "1.4"
