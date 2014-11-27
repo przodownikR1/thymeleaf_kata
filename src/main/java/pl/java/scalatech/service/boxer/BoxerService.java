@@ -12,7 +12,7 @@ public interface BoxerService {
 
     void delete(Boxer boxer);
 
-    void save(Boxer boxer);
+    Boxer save(Boxer boxer);
 
    
 

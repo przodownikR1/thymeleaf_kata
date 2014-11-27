@@ -33,14 +33,12 @@ public class CountryServiceImpl implements CountryService {
     @Transactional
     public void delete(Country country) {
         countryRepository.delete(country);
-
     }
 
     @Override
     @Transactional
-    public void save(Country country) {
-        countryRepository.save(country);
-
+    public Country save(Country country) {
+        return countryRepository.save(country);
     }
 
     @Override

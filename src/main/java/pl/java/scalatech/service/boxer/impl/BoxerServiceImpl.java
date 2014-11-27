@@ -2,14 +2,6 @@ package pl.java.scalatech.service.boxer.impl;
 
 import java.util.List;
 
-
-
-
-
-
-
-
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.java.scalatech.domain.Boxer;
-import pl.java.scalatech.domain.Country;
 import pl.java.scalatech.repository.boxer.BoxerRepository;
 import pl.java.scalatech.service.boxer.BoxerService;
 
@@ -48,8 +39,8 @@ public class BoxerServiceImpl implements BoxerService {
 
     @Override
     @Transactional
-    public void save(Boxer boxer) {
-        boxerRepository.save(boxer);
+    public Boxer save(Boxer boxer) {
+        return boxerRepository.save(boxer);
         
     }
 

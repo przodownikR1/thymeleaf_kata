@@ -11,7 +11,7 @@ public interface CountryService {
 
     void delete(Country country);
 
-    void save(Country country);
+    Country save(Country country);
     
     Country findByCode(String code);
     
