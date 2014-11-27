@@ -31,14 +31,14 @@
   <legend th:text="#{nav.boxer.legend}">Boxer</legend>
       <input type="hidden" th:field="*{id}" />
        <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error has-feedback'">
-        <label for="name" class="col-sm-2 control-label" th:text="#{boxer.name}">Name</label>
+        <label for="name" class="col-sm-2 control-label" th:text="#{boxer.name.messsage}">Name</label>
           <div class="col-xs-3">
                <input type="text" id="name" name="name" th:field="*{name}" class="form-control" value="ee"/>
                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block">error!</span>
          </div>
         </div>
       <div class="form-group" th:classappend="${#fields.hasErrors('nick')}? 'has-error has-feedback'">
-        <label for="nick" class="col-sm-2 control-label" th:text="#{boxer.nick}">nick</label>
+        <label for="nick" class="col-sm-2 control-label" th:text="#{boxer.nick.messsage}">nick</label>
           <div class="col-xs-3">
                <input type="text" id="nick" name="nick" th:field="*{nick}" class="form-control" value="ee"/>
                 <span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}" class="help-block">error!</span>
@@ -46,7 +46,7 @@
         </div>
       
       <div class="form-group" th:classappend="${#fields.hasErrors('division')}? 'has-error has-feedback'">
-        <label for="division" class="col-sm-2 control-label" th:text="#{boxer.division}">division</label>
+        <label for="division" class="col-sm-2 control-label" th:text="#{boxer.division.message}">division</label>
           <div class="col-xs-3">
                 <select th:field="*{division}">
                  <option th:each="division : ${divisions}" th:value="${division}" th:text="#{__${division.name}__}"  th:selected="${division == T(pl.java.scalatech.domain.Division).NO_SELECTED}"></option>
@@ -56,12 +56,20 @@
         </div>
       
 
-        
+         <div class="form-group" th:classappend="${#fields.hasErrors('country')}? 'has-error has-feedback'">
+        <label for="country" class="col-sm-2 control-label" th:text="#{boxer.country.message}">country</label>
+          <div class="col-xs-3">
+                <select th:field="*{country}">
+                 <option th:each="country : ${countries}" th:value="${country}" th:text="#{__${country.name}__}" ></option>
+        </select>
+                <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" class="help-block">error!</span>
+         </div>
+        </div>
         
        
         
         <div class="form-group" th:classappend="${#fields.hasErrors('lost')}? 'has-error has-feedback'">
-        <label for="lost" class="col-sm-2 control-label" th:text="#{boxer.lost}">lost</label>
+        <label for="lost" class="col-sm-2 control-label" th:text="#{boxer.lost.message}">lost</label>
           <div class="col-xs-3">
                <input type="text" id="lost" name="lost" th:field="*{lost}" class="form-control" value="ee"/>
                 <span th:if="${#fields.hasErrors('lost')}" th:errors="*{lost}" class="help-block">error!</span>
@@ -69,17 +77,17 @@
         </div>
         
         
-        <div class="form-group" th:classappend="${#fields.hasErrors('win')}? 'has-error has-feedback'">
-        <label for="win" class="col-sm-2 control-label" th:text="#{boxer.win}">win</label>
+        <div class="form-group" th:classappend="${#fields.hasErrors('won')}? 'has-error has-feedback'">
+        <label for="won" class="col-sm-2 control-label" th:text="#{boxer.won.message}">won</label>
           <div class="col-xs-3">
-               <input type="text" id="win" name="win" th:field="*{win}" class="form-control" value="ee"/>
-                <span th:if="${#fields.hasErrors('win')}" th:errors="*{win}" class="help-block">error!</span>
+               <input type="text" id="won" name="won" th:field="*{won}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('won')}" th:errors="*{won}" class="help-block">error!</span>
          </div>
         </div>
         
         
         <div class="form-group" th:classappend="${#fields.hasErrors('draw')}? 'has-error has-feedback'">
-        <label for="draw" class="col-sm-2 control-label" th:text="#{boxer.draw}">draw</label>
+        <label for="draw" class="col-sm-2 control-label" th:text="#{boxer.draw.message}">draw</label>
           <div class="col-xs-3">
                <input type="text" id="draw" name="draw" th:field="*{draw}" class="form-control" value="ee"/>
                 <span th:if="${#fields.hasErrors('draw')}" th:errors="*{draw}" class="help-block">error!</span>
@@ -88,7 +96,6 @@
         
         
         
-      
      <div class="form-group">
            <div class="col-sm-offset-2 col-sm-10">
              <button type="submit" class="btn btn-primary">save</button>

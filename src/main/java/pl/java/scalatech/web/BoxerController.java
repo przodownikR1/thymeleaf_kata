@@ -1,7 +1,12 @@
 package pl.java.scalatech.web;
 
+import java.util.Collection;
+import java.util.Set;
+
 import javax.validation.Valid;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +19,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.common.collect.Sets;
+
 import pl.java.scalatech.domain.Boxer;
+import pl.java.scalatech.domain.Country;
 import pl.java.scalatech.domain.Division;
+import pl.java.scalatech.repository.country.CountryRepository;
 import pl.java.scalatech.service.boxer.BoxerService;
 @Controller
 @RequestMapping("/boxer")
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BoxerController {
     private final static String BOXER_VIEW = "boxer/boxer";
     private final static String BOXER_EDIT = "boxer/boxerEdit";
     private final static String BOXER_REDIRECT = "redirect:/boxer/";
-    @Autowired
-    private BoxerService boxerService;
+    
+    private final @NonNull BoxerService boxerService;
+    
+    private final @NonNull CountryRepository countryRepository;
     
     @ModelAttribute("divisions")
     public Division[] divisions(){
         return Division.values();
+    }
+    
+    @ModelAttribute("countries")
+    public Set<Country> countries(){
+        return Sets.newHashSet(countryRepository.findAll());
     }
     
     @RequestMapping(value = "/", method = RequestMethod.GET)

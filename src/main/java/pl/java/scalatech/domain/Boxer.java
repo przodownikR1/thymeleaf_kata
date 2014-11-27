@@ -32,7 +32,7 @@ public class Boxer extends PKEntity {
     private Country country;
 
     private int lost;
-    private int win;
+    private int won;
     private int draw;
 
 }

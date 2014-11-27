@@ -35,7 +35,7 @@
 				<th th:text="#{boxer.division.message}">Division</th>
 				<th th:text="#{boxer.country.message}">country</th>
 				<th th:text="#{boxer.lost.message}">lost</th>
-				<th th:text="#{boxer.win.message}">win</th>
+				<th th:text="#{boxer.won.message}">won</th>
 				<th th:text="#{boxer.draw.message}">draw</th>
 				<th th:text="#{edit.boxer.message}">Edit</th>
 				<th th:text="#{delete.boxer.message}">Delete</th>
@@ -57,7 +57,7 @@
 				</td>
 				<td th:text="${boxer.country}" />
 				<td th:text="${boxer.lost}" />
-				<td th:text="${boxer.win}" />
+				<td th:text="${boxer.won}" />
 				<td th:text="${boxer.draw}" />
 				<td><a class="btn" href="#" th:href="@{'/boxer/' + ${boxer.id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
 

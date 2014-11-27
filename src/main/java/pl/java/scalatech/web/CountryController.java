@@ -2,6 +2,8 @@ package pl.java.scalatech.web;
 
 import javax.validation.Valid;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +16,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pl.java.scalatech.domain.Country;
-import pl.java.scalatech.repository.country.CountryRepository;
+import pl.java.scalatech.service.country.CountryService;
 
 @Controller
 @RequestMapping("/country")
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CountryController {
     private final static String COUNTRY_VIEW = "country/country";
     private final static String COUNTRY_EDIT = "country/countryEdit";
     private final static String COUNTRY_REDIRECT = "redirect:/country/";
-    @Autowired
-    private CountryRepository countryRepository;
+    
+    private final @NonNull CountryService countryService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String getAllCountry(Model model) {
-        model.addAttribute(countryRepository.findAll());
+        model.addAttribute(countryService.findAll());
         log.info("+++++++        {}",model);
         return COUNTRY_VIEW;
     }
@@ -44,7 +47,7 @@ public class CountryController {
         if (id == null) {
             model.addAttribute("country", new Country());
         }else{
-            model.addAttribute("country", countryRepository.findOne(id));
+            model.addAttribute("country", countryService.findOne(id));
         }
         
         return COUNTRY_EDIT;
@@ -52,8 +55,8 @@ public class CountryController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, Model model) {
-        Country country = countryRepository.findOne(id);
-        countryRepository.delete(country);
+        Country country = countryService.findOne(id);
+        countryService.delete(country);
         return COUNTRY_REDIRECT;
     }
 
@@ -66,7 +69,7 @@ public class CountryController {
             log.info("+++  invoice error  {}", result);
             return COUNTRY_EDIT;
         }
-        countryRepository.save(country);
+        countryService.save(country);
         return COUNTRY_REDIRECT;
     }
 
