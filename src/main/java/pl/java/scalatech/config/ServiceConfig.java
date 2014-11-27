@@ -33,7 +33,7 @@ public class ServiceConfig {
     
     @PostConstruct
     public void init(){
-        System.err.println("ddddddddddddddd");
+       
         countryService.save(Country.builder().name("Poland").code("PL").build());
         countryService.save(Country.builder().name("Philippines").code("PHI").build());
         countryService.save(Country.builder().name("Russia ").code("RUS").build());

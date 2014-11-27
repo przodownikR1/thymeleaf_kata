@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:tiles="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
+
+
+<head th:include="fragment/headTag :: headTag">
+<title>fight</title>
+</head>
+
+
+<body>
+    <div th:include="fragment/nav :: nav" />
+</body>
+<br />
+
+<br />
+<br />
+<div class="container">
+
+ <div class="row">
+ 
+<div class="col-lg-8">
+    <table border="1"
+        class="table table-striped table-bordered table-condensed table-hover">
+        <caption th:text="#{fight.name.caption}">Fight</caption>
+        <thead>
+            <tr class="info">
+                <th th:text="#{fight.id.message}">Id</th>
+                <th th:text="#{fight.winner.message}">Winner</th>
+                <th th:text="#{fight.loser.message}">Loser</th>
+                <th th:text="#{fight.fightDate.message}">FightData</th>
+                <th th:text="#{fight.roundCount.message}">RoundCount</th>
+                <th th:text="#{fight.place.country.message}">Country</th>
+                <th th:text="#{fight.place.city.message}">City</th>
+                <th th:text="#{fight.place.location.latitude.message}">latitude</th>
+                <th th:text="#{fight.place.location.longitude.message}">longitude</th>
+                <th th:text="#{edit.fight.message}">Edit</th>
+                <th th:text="#{delete.fight.message}">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  th:each="fight : ${fightList}">
+                <td th:disabled="true" th:text="${fight.id}" />
+                <td th:text="${fight.winner.name}" />
+                <td th:text="${fight.loser.name}" />
+                <th th:text="#{fight.fightDate}"/>
+                <th th:text="#{fight.roundCount}"/>
+                <th th:text="#{fight.place.country}"/>
+                <th th:text="#{fight.place.city}"/>
+                <th th:text="#{fight.place.location.latitude}"/>
+                <th th:text="#{fight.place.location.longitude}"/>
+                
+                <td><a class="btn" href="#" th:href="@{'/fight/' + ${fight.id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+
+                <td><a class="btn" href="#"  th:href="@{'/fight/delete/' + ${fight.id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+     <div class="col-lg-8">
+        <p th:text="#{fight.add.message}">Add fight</p><a th:href="@{/fight}"><span   class="glyphicon glyphicon-plus"></span></a>
+     </div>
+   </div>
+</div>
+<div th:include="fragment/footer :: footer" />
+</html>

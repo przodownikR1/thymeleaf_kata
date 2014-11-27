@@ -1,6 +1,5 @@
 package pl.java.scalatech.web;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -19,13 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.common.collect.Sets;
-
 import pl.java.scalatech.domain.Boxer;
 import pl.java.scalatech.domain.Country;
 import pl.java.scalatech.domain.Division;
 import pl.java.scalatech.repository.country.CountryRepository;
 import pl.java.scalatech.service.boxer.BoxerService;
+
+import com.google.common.collect.Sets;
 @Controller
 @RequestMapping("/boxer")
 @Slf4j

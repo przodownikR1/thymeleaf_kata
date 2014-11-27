@@ -30,6 +30,8 @@
 				<th th:text="#{country.id}">Id</th>
 				<th th:text="#{country.name}">Name</th>
 				<th th:text="#{country.code}">Code</th>
+				<th th:text="#{dateAdded.message}">DateAdded</th>
+				<th th:text="#{dateModification.message}">DateModification</th>
 				<th th:text="#{edit.country.message}">Edit</th>
 				<th th:text="#{delete.country.message}">Delete</th>
 			</tr>
@@ -39,6 +41,8 @@
 				<td th:disabled="true" th:text="${country.id}" />
 				<td th:text="${country.name}" />
 				<td th:text="${country.code}" />
+				<td th:text="${country.dateAdded}" />
+				<td th:text="${country.dateModification}" />
 				<td><a class="btn" href="#" th:href="@{'/country/' + ${country.id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
 
 				<td><a class="btn" href="#"  th:href="@{'/country/delete/' + ${country.id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
