@@ -69,6 +69,11 @@ public class ServiceConfig {
         boxerService.save(Boxer.builder().country(countryService.findByCode("MEX")).division(Division.Lightweight).name("Saul Alvarez").draw(1).lost(1).won(44).nick("Canelo").stance(Stance.orthodox).build());
         boxerService.save(Boxer.builder().country(countryService.findByCode("USA")).division(Division.Welterweight).name("Floyd Mayweather Jr").draw(1).lost(0).won(47).nick("Money / Pretty Boy").stance(Stance.orthodox).build());
         
+        boxerService.save(Boxer.builder().country(countryService.findByCode("PHI")).division(Division.Welterweight).name("Manny Pacquiao").draw(2).lost(5).won(57).nick("Pac Man").stance(Stance.southpaw).build());
+        boxerService.save(Boxer.builder().country(countryService.findByCode("MEX")).division(Division.Welterweight).name("Juan Manuel Marquez").draw(1).lost(7).won(56).nick("Dinamita").stance(Stance.orthodox).build());
+     
+        
+        
     }
     
     
