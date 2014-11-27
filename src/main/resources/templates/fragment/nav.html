@@ -65,7 +65,18 @@
                       </ul>
                  
                  </li>
-               
+                <li class="dropdown">
+                 <a href="" class="dropdown-toggle" data-toggle="dropdown" th:text="#{nav.boxer.label}"><span class="glyphicon glyphicon-user"></span>Boxer : <b class="caret"></b></a>
+                      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+                              
+                                <li role="presentation" class="dropdown-header" th:text="#{nav.boxer}">Boxer</li>
+                                <li><a href="#" th:href="@{/boxer/}" th:text="#{nav.boxer.show}"><span class="glyphicon glyphicon-user"></span>show boxer</a></li>
+                                <li><a href="#" th:href="@{/boxer}" th:text="#{nav.boxer.edit}"><span class="glyphicon glyphicon-plus"></span>Add boxer</a></li>
+                                 
+                                
+                      </ul>
+                 
+                 </li>
                 <li ><a href="#" th:href="@{/}"><span class="glyphicon glyphicon-info-sign"  data-toggle="modal" data-target="#myModal"></span>PoC</a></li>
                
                  

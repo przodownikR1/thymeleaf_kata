@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
+
+
+<head th:include="fragment/headTag :: headTag">
+<title>Boxer</title>
+</head>
+
+
+<body>
+	<div th:include="fragment/nav :: nav" />
+</body>
+<br />
+
+<br />
+<br />
+<div class="container">
+
+ <div class="row">
+
+
+<div class="col-lg-8">
+	<table border="1"
+		class="table table-striped table-bordered table-condensed table-hover">
+		<caption th:text="#{boxer.name.caption}">Boxer</caption>
+		<thead>
+			<tr class="info">
+				<th th:text="#{boxer.id.message}">Id</th>
+				<th th:text="#{boxer.name.message}">Name</th>
+				<th
+				 th:text="#{boxer.nick.message}">Nick</th>
+				<th th:text="#{boxer.division.message}">Division</th>
+				<th th:text="#{boxer.country.message}">country</th>
+				<th th:text="#{boxer.lost.message}">lost</th>
+				<th th:text="#{boxer.win.message}">win</th>
+				<th th:text="#{boxer.draw.message}">draw</th>
+				<th th:text="#{edit.boxer.message}">Edit</th>
+				<th th:text="#{delete.boxer.message}">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  th:each="boxer : ${boxerList}">
+				<td th:disabled="true" th:text="${boxer.id}" />
+				<td th:text="${boxer.name}" />
+				<td th:text="${boxer.nick}" />
+				<td>
+				<select name="division">
+                      <option th:each="division :  ${T(pl.java.scalatech.domain.Division).values()}" 
+                       th:value="${division}"
+                       th:text="#{__${division.name}__}" 
+                       th:selected="${division == boxer.division}" ></option>
+                </select>
+				
+				</td>
+				<td th:text="${boxer.country}" />
+				<td th:text="${boxer.lost}" />
+				<td th:text="${boxer.win}" />
+				<td th:text="${boxer.draw}" />
+				<td><a class="btn" href="#" th:href="@{'/boxer/' + ${boxer.id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+
+				<td><a class="btn" href="#"  th:href="@{'/boxer/delete/' + ${boxer.id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+     <div class="col-lg-8">
+        <p th:text="#{boxer.add.message}">Add boxer</p><a th:href="@{/boxer}"><span   class="glyphicon glyphicon-plus"></span></a>
+     </div>
+   </div>
+</div>
+<div th:include="fragment/footer :: footer" />
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:tiles="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
+
+
+<head th:include="fragment/headTag :: headTag">
+<title>edit boxer</title>
+</head>
+
+
+<body>
+    <div th:include="fragment/nav :: nav" />
+</body>
+<br />
+
+<br />
+<br />
+<div class="container">
+
+ <div class="row">
+ 
+<div class="col-lg-8">
+
+
+
+ 
+<form th:action="@{/boxer}" th:object="${boxer}" method="post" class="form-horizontal">
+<fieldset>
+  <legend th:text="#{nav.boxer.legend}">Boxer</legend>
+      <input type="hidden" th:field="*{id}" />
+       <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error has-feedback'">
+        <label for="name" class="col-sm-2 control-label" th:text="#{boxer.name}">Name</label>
+          <div class="col-xs-3">
+               <input type="text" id="name" name="name" th:field="*{name}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block">error!</span>
+         </div>
+        </div>
+      <div class="form-group" th:classappend="${#fields.hasErrors('nick')}? 'has-error has-feedback'">
+        <label for="nick" class="col-sm-2 control-label" th:text="#{boxer.nick}">nick</label>
+          <div class="col-xs-3">
+               <input type="text" id="nick" name="nick" th:field="*{nick}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}" class="help-block">error!</span>
+         </div>
+        </div>
+      
+      <div class="form-group" th:classappend="${#fields.hasErrors('division')}? 'has-error has-feedback'">
+        <label for="division" class="col-sm-2 control-label" th:text="#{boxer.division}">division</label>
+          <div class="col-xs-3">
+                <select th:field="*{division}">
+                 <option th:each="division : ${divisions}" th:value="${division}" th:text="#{__${division.name}__}"  th:selected="${division == T(pl.java.scalatech.domain.Division).NO_SELECTED}"></option>
+        </select>
+                <span th:if="${#fields.hasErrors('division')}" th:errors="*{division}" class="help-block">error!</span>
+         </div>
+        </div>
+      
+
+        
+        
+       
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('lost')}? 'has-error has-feedback'">
+        <label for="lost" class="col-sm-2 control-label" th:text="#{boxer.lost}">lost</label>
+          <div class="col-xs-3">
+               <input type="text" id="lost" name="lost" th:field="*{lost}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('lost')}" th:errors="*{lost}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('win')}? 'has-error has-feedback'">
+        <label for="win" class="col-sm-2 control-label" th:text="#{boxer.win}">win</label>
+          <div class="col-xs-3">
+               <input type="text" id="win" name="win" th:field="*{win}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('win')}" th:errors="*{win}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('draw')}? 'has-error has-feedback'">
+        <label for="draw" class="col-sm-2 control-label" th:text="#{boxer.draw}">draw</label>
+          <div class="col-xs-3">
+               <input type="text" id="draw" name="draw" th:field="*{draw}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('draw')}" th:errors="*{draw}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        
+      
+     <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <button type="submit" class="btn btn-primary">save</button>
+           </div>
+    </div>
+     
+      </fieldset>
+    </form>
+    </div>
+</div>
+</div>
+    
+    
+<br />
+
+<br />
+<br />
+<br />
+<br />
+
+<div th:include="fragment/footer :: footer" />
+</html>
