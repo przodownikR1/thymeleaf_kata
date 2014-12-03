@@ -13,11 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
@@ -40,14 +43,26 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
+import pl.java.scalatech.domain.Boxer;
+import pl.java.scalatech.domain.Country;
+
 @Configuration
 @EnableWebMvc
 @Slf4j
 @ComponentScan(basePackages = { "pl.java.scalatech.web" }, useDefaultFilters = false, includeFilters = { @Filter(Controller.class) })
+@Import(ConversionConfig.class)
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private Environment env;
-
+    @Autowired
+    private Converter<Boxer,String> boxer2StringConverter;
+    @Autowired
+    private Converter<Country, String> country2StringConverter;
+    @Autowired
+    private Converter<String,Boxer> string2BoxerConverter;
+    @Autowired
+    private Converter<String, Country> string2CountryConverter;
+    
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();
@@ -141,7 +156,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return localValidatorFactoryBean;
     }
 
-  
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(boxer2StringConverter);
+        registry.addConverter(country2StringConverter);
+        registry.addConverter(string2BoxerConverter);
+        registry.addConverter(string2CountryConverter);
+    }
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {

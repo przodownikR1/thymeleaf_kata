@@ -92,4 +92,17 @@ public class RepositoryTest {
         countryRepository.delete(country);
         Assertions.assertThat(countryRepository.count()).isEqualTo(0);
     }
+    @Test
+    public void shouldFindCountryByCode(){
+        Country country = Country.builder().name("Poland").code("PL").build();
+        countryRepository.save(country);
+        Assertions.assertThat(countryRepository.findByCode("PL").get()).isEqualTo(country);
+    }
+    
+    @Test
+    public void shouldThrowExceptionIfFindCountryByCodeNotExists(){
+        Country country = Country.builder().name("Poland").code("PL").build();
+        countryRepository.save(country);
+        Assertions.assertThat(countryRepository.findByCode("PR").get()).isEqualTo(country);
+    }
 }

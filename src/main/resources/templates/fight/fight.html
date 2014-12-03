@@ -45,12 +45,12 @@
                 <td th:disabled="true" th:text="${fight.id}" />
                 <td th:text="${fight.winner.name}" />
                 <td th:text="${fight.loser.name}" />
-                <th th:text="#{fight.fightDate}"/>
-                <th th:text="#{fight.roundCount}"/>
-                <th th:text="#{fight.place.country}"/>
-                <th th:text="#{fight.place.city}"/>
-                <th th:text="#{fight.place.location.latitude}"/>
-                <th th:text="#{fight.place.location.longitude}"/>
+                <th th:text="${fight.fightDate}"/>
+                <th th:text="${fight.roundCount}"/>
+                <th th:text="${fight.place.country}"/>
+                <th th:text="${fight.place.city}"/>
+                <th th:text="${fight.place.location.latitude}"/>
+                <th th:text="${fight.place.location.longitude}"/>
                 
                 <td><a class="btn" href="#" th:href="@{'/fight/' + ${fight.id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
 

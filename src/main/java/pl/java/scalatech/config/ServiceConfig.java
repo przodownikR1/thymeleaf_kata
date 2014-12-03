@@ -1,16 +1,20 @@
 package pl.java.scalatech.config;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 
 import javax.annotation.PostConstruct;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -21,6 +25,7 @@ import pl.java.scalatech.domain.Fight;
 import pl.java.scalatech.domain.Location;
 import pl.java.scalatech.domain.Place;
 import pl.java.scalatech.domain.Stance;
+import pl.java.scalatech.repository.place.PlaceRepository;
 import pl.java.scalatech.service.boxer.BoxerService;
 import pl.java.scalatech.service.country.CountryService;
 import pl.java.scalatech.service.fight.FightService;
@@ -29,6 +34,7 @@ import pl.java.scalatech.service.fight.FightService;
 @ComponentScan(basePackages = { "pl.java.scalatech.service" }, useDefaultFilters = false, includeFilters = { @Filter(Service.class) })
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
+@Slf4j
 public class ServiceConfig {
 
     
@@ -40,6 +46,63 @@ public class ServiceConfig {
     
     @Autowired
     private FightService fightService;
+    
+    @Autowired
+    private PlaceRepository placeRepository;
+    
+    
+    @Bean
+    public Converter<Country, String> country2StringConverter() {
+        return new Converter<Country, String>() {
+            @Override
+            public String convert(Country source) {
+                log.info("+++++++++++  Country2StringConverter  {}", source);
+                return source.getName();
+            }
+        };
+    }
+
+    @Bean
+    public Converter<Boxer, String> boxer2StringConverter() {
+        return new Converter<Boxer, String>() {
+            @Override
+            public String convert(Boxer source) {
+                log.info("+++++++++++  Boxer2StringConverter  {}", source);
+                return "" + source.getId();
+            }
+        };
+    }
+
+    @Bean
+    public Converter<String, Boxer> string2BoxerConverter() {
+        return new Converter<String, Boxer>() {
+            @Override
+            public Boxer convert(String source) {
+                log.info("+++            source {}  ->    boxerRepo  : {}", source, boxerService);
+                Boxer boxer = boxerService.findOne(Long.parseLong(source));
+                log.info("+++        string2BoxerConverter         {}", boxer);
+                return boxer;
+            }
+
+        };
+    }
+
+    @Bean
+    public Converter<String, Country> string2CountryConverter() {
+        return new Converter<String, Country>() {
+
+            @Override
+            public Country convert(String code) {
+                log.info("+++            string2CountryConverter    code:  {} ,   repo {}", code, countryService);
+                Country country = countryService.findByCode(code);
+
+                log.info("+++            string2Country    {}", country);
+                return country;
+
+            }
+
+        };
+    }
     
     @PostConstruct
     public void init(){
@@ -83,11 +146,12 @@ public class ServiceConfig {
         Boxer dinamita = boxerService.save(Boxer.builder().country(countryService.findByCode("MEX")).division(Division.Welterweight).name("Juan Manuel Marquez").draw(1).lost(7).won(56).nick("Dinamita").stance(Stance.orthodox).build());
      
         Place place = Place.builder().city("Warsaw").country(poland).location(new Location(123.343d, 231.323d)).build();
-        fightService.save(Fight.builder().winner(fist).loser(pin).fightDate(new Date()).roundCount(12).place(place).build());
+        fightService.save(Fight.builder().winner(fist).loser(pin).fightDate(LocalDate.of(2014, Month.AUGUST, 3)).roundCount(12).place(place).build());
         
         place = Place.builder().city("Macco").country(china).location(new Location(144.343d, 531.323d)).build();
-        fightService.save(Fight.builder().winner(pac).loser(money).fightDate(new Date()).roundCount(10).place(place).build());
+        fightService.save(Fight.builder().winner(pac).loser(money).fightDate(LocalDate.of(2013, Month.JANUARY, 23)).roundCount(10).place(place).build());
         
+      
     }
     
     

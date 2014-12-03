@@ -20,10 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import pl.java.scalatech.domain.Boxer;
 import pl.java.scalatech.domain.Country;
-import pl.java.scalatech.domain.Division;
 import pl.java.scalatech.domain.Fight;
+import pl.java.scalatech.repository.boxer.BoxerRepository;
 import pl.java.scalatech.repository.country.CountryRepository;
-import pl.java.scalatech.service.boxer.BoxerService;
 import pl.java.scalatech.service.fight.FightService;
 
 import com.google.common.collect.Sets;
@@ -41,7 +40,13 @@ public class FightController {
     
     private final @NonNull CountryRepository countryRepository;
     
+    private final @NonNull BoxerRepository boxerRepository;
+    
    
+    @ModelAttribute("boxers")
+    public Set<Boxer> boxers(){
+        return Sets.newHashSet(boxerRepository.findAll());
+    }
   
     @ModelAttribute("countries")
     public Set<Country> countries(){

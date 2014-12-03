@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:tiles="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org" th:lang="${#locale.language}">
+
+
+<head th:include="fragment/headTag :: headTag">
+<title>edit fight</title>
+</head>
+
+
+<body>
+    <div th:include="fragment/nav :: nav" />
+</body>
+<br />
+
+<br />
+<br />
+<div class="container">
+
+ <div class="row">
+ 
+<div class="col-lg-8">
+
+
+
+ 
+<form th:action="@{/fight}" th:object="${fight}" method="post" class="form-horizontal">
+<fieldset>
+  <legend th:text="#{nav.fight.legend}">Fight</legend>
+      <input type="hidden" th:field="*{id}" />
+      
+      
+      
+        <div class="form-group" th:classappend="${#fields.hasErrors('winner')}? 'has-error has-feedback'">
+        <label for="winner" class="col-sm-2 control-label" th:text="#{fight.winner.message}">winner</label>
+          <div class="col-xs-3">
+                <select th:field="*{winner}">
+                 <option th:each="boxer : ${boxers}" th:value="${boxer.id}" th:text="#{__${boxer.name}__}" ></option>
+        </select>
+                <span th:if="${#fields.hasErrors('winner')}" th:errors="*{winner}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('loser')}? 'has-error has-feedback'">
+        <label for="loser" class="col-sm-2 control-label" th:text="#{fight.loser.message}">loser</label>
+          <div class="col-xs-3">
+                <select th:field="*{loser}">
+                 <option th:each="boxer : ${boxers}" th:value="${boxer.id}" th:text="#{__${boxer.name}__}" ></option>
+        </select>
+                <span th:if="${#fields.hasErrors('loser')}" th:errors="*{loser}" class="help-block">error!</span>
+         </div>
+        </div>
+      
+     
+        <div class="form-group" th:classappend="${#fields.hasErrors('place.country')}? 'has-error has-feedback'">
+        <label for="country" class="col-sm-2 control-label" th:text="#{fight.place.country.message}">country</label>
+          <div class="col-xs-3">
+                <select th:field="*{place.country}">
+                 <option th:each="country : ${countries}" th:value="${country.code}" th:text="#{__${country.name}__}" ></option>
+        </select>
+                <span th:if="${#fields.hasErrors('place.country')}" th:errors="*{place.country}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('place.city')}? 'has-error has-feedback'">
+        <label for="lost" class="col-sm-2 control-label" th:text="#{fight.place.city.message}">city</label>
+          <div class="col-xs-3">
+               <input type="text" id="place.city" name="place.city" th:field="*{place.city}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('place.city')}" th:errors="*{place.city}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('roundCount')}? 'has-error has-feedback'">
+        <label for="won" class="col-sm-2 control-label" th:text="#{fight.roundCount.message}">roundCount</label>
+          <div class="col-xs-3">
+               <input type="text" id="roundCount" name="roundCount" th:field="*{roundCount}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('roundCount')}" th:errors="*{roundCount}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        <div class="form-group" th:classappend="${#fields.hasErrors('fightDate')}? 'has-error has-feedback'">
+        <label for="fightDate" class="col-sm-2 control-label" th:text="#{fight.fightDate.message}">fightDate</label>
+          <div class="col-xs-3">
+               <input type="text" id="draw" name="fightDate" th:field="*{fightDate}" class="form-control" value="ee"/>
+                <span th:if="${#fields.hasErrors('fightDate')}" th:errors="*{fightDate}" class="help-block">error!</span>
+         </div>
+        </div>
+        
+        
+        
+     <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <button type="submit" class="btn btn-primary">save</button>
+           </div>
+    </div>
+     
+      </fieldset>
+    </form>
+    </div>
+</div>
+</div>
+    
+    
+<br />
+
+<br />
+<br />
+<br />
+<br />
+
+<div th:include="fragment/footer :: footer" />
+</html>

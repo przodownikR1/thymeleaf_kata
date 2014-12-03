@@ -7,10 +7,12 @@ import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Builder;
 
 @Data
+@EqualsAndHashCode(callSuper=true)
 @Builder
 @Entity
 @NoArgsConstructor

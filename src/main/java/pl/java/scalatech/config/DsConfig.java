@@ -57,7 +57,7 @@ public class DsConfig {
         return org.h2.tools.Server.createWebServer("-web,-webAllowOthers,-webPort,8082".split(","));
     }
 
-    @Bean
+    @Bean(name="entityManagerFactory")
     @DependsOn(value = "dataSource")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws SQLException {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();

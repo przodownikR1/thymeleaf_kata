@@ -13,7 +13,7 @@ import pl.java.scalatech.domain.Boxer;
 import pl.java.scalatech.repository.boxer.BoxerRepository;
 import pl.java.scalatech.service.boxer.BoxerService;
 
-@Service
+@Service("boxerService")
 @Transactional(readOnly=true)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BoxerServiceImpl implements BoxerService {

@@ -1,7 +1,9 @@
 package pl.java.scalatech.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,12 +28,12 @@ public class Fight extends PKEntity {
     @JoinColumn(name="loserId")
     private Boxer loser;
 
-    private Date fightDate;
+    private LocalDate fightDate;
 
     private int roundCount;
     
     
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="placeId")
     private Place place;    
 }

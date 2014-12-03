@@ -1,5 +1,6 @@
 package pl.java.scalatech.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -10,6 +11,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.Type;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,18 +28,20 @@ public abstract class PKEntity extends AbstactId {
     @Column(name = "date_modification")
     @Basic(fetch = FetchType.LAZY)
     @XmlTransient
-    protected Date dateModification;
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
+    protected LocalDate dateModification;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_added", nullable = false)
     @Basic(fetch = FetchType.LAZY)
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
     @XmlTransient
-    protected Date dateAdded = new Date();
+    protected LocalDate dateAdded= LocalDate.now();
 
 
     @PreUpdate
     private void initPreUpdate() {
-        dateModification = new Date();
+        dateModification = LocalDate.now();
         if (dateAdded == null) {
             dateAdded = dateModification;
         }

@@ -1,6 +1,7 @@
 package pl.java.scalatech.service.country.impl;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import pl.java.scalatech.service.country.CountryService;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CountryServiceImpl implements CountryService {
     private final @NonNull CountryRepository countryRepository;
+    
+    private final Supplier<? extends RuntimeException> invalidCode = () -> new IllegalArgumentException("Invalid code");
 
     @Override
     public List<Country> findAll() {
@@ -43,7 +46,11 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country findByCode(String code) {
-        return countryRepository.findByCode(code);
+        if(countryRepository.findByCode(code).isPresent()){
+            return countryRepository.findByCode(code).orElseThrow(invalidCode);    
+        }
+        return null;
+        
     }
 
     @Override
