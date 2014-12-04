@@ -1,0 +1,46 @@
+apply from: './gradle.properties'
+
+repositories {
+    maven { url "http://localhost:8487/nexus/content/groups/public/" }
+    maven { url "http://repo.spring.io/libs-milestone" }
+    mavenLocal()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-tomcat") 
+    compile("org.springframework.boot:spring-boot-starter-logging")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    
+    compile("org.projectlombok:lombok:${lombokVersion}")
+    compile("com.google.guava:guava:${guavaVersion}")
+    runtime("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compile ("com.h2database:h2:${h2Version}")
+
+     compile ("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
+    
+    compile("org.thymeleaf:thymeleaf-spring4:${thymeleafSpring4Version}")
+    compile("org.webjars:jquery:${webjarsJQueryVersion}")
+    compile("org.webjars:bootstrap:${webjarsBootstrapVersion}")
+    compile("org.jadira.usertype:usertype.extended:${jadiraUsertypeVersion}")
+    testCompile("junit:junit:${junitVersion}")
+ 
+    testCompile ("org.springframework:spring-test:${springVersion}")
+    testCompile("org.easytesting:fest-assert:${festAssertVersion}")
+    testCompile("org.hamcrest:hamcrest-all:$hamcrestVersion")
+
+    
+}
+
+configurations {
+    all*.exclude group: "commons-logging", module: "commons-logging"
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'org.springframework') {
+            details.useVersion '4.1.0.RELEASE'
+        }
+    }
+}

@@ -1,0 +1,22 @@
+task sourcesJar(type :Jar, dependsOn: classes){
+    logger.quiet('sourceJar ......................')
+    baseName = archivesBaseName
+    classifier 'source'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    logger.quiet('javadocJar ......................')
+    baseName = archivesBaseName
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+    }
+
+artifacts {
+     archives sourcesJar 
+     archives javadocJar
+     }
+
+assemble.dependsOn sourcesJar
+//assemble.dependsOn javadocJar
+

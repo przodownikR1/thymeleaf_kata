@@ -1,0 +1,9 @@
+apply plugin: 'distribution'
+distributions {
+    main {
+        baseName = distZip
+
+        contents { from { libsDir } }
+    }
+}
+

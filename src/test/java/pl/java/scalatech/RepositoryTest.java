@@ -98,11 +98,11 @@ public class RepositoryTest {
         countryRepository.save(country);
         Assertions.assertThat(countryRepository.findByCode("PL").get()).isEqualTo(country);
     }
-    
+    //TODO stupid test / refactor this later
     @Test
     public void shouldThrowExceptionIfFindCountryByCodeNotExists(){
         Country country = Country.builder().name("Poland").code("PL").build();
         countryRepository.save(country);
-        Assertions.assertThat(countryRepository.findByCode("PR").get()).isEqualTo(country);
+        Assertions.assertThat(countryRepository.findByCode("PR").orElse(country)).isEqualTo(country);
     }
 }

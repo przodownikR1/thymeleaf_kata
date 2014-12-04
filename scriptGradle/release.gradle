@@ -1,0 +1,47 @@
+apply plugin: 'maven-publish'
+ext {
+    nexusBaseUrl = 'http://localhost:8487/nexus/content/repositories'
+    nexusSnapshotRepoUrl = "$nexusBaseUrl/snapshots"
+    nexusReleaseRepoUrl = "$nexusBaseUrl/releases"
+}
+
+publishing {
+    publications {
+        plugin(MavenPublication) {
+            groupId 'pl.java.scalatech'
+            artifactId 'basicEntity'
+            version '1.0.1'
+            from components.java
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('name', 'basicEntity')
+                root.appendNode('description', 'common entity for all jpa projects')
+                root.appendNode('inceptionYear', '2014')
+                
+                def developer = root.appendNode('developers').appendNode('developer')
+                developer.appendNode('id', 'przodownik')
+                developer.appendNode('name', 'slawek borowiec')
+                developer.appendNode('email', 'przodownikR1@gmail.com')
+            }
+
+            artifact sourcesJar
+        }
+    }
+
+    repositories {
+        maven {
+            name 'myLocal'
+            url "file://$projectDir/repo"
+        }
+
+        maven {
+            name 'remoteRepository'
+            url project.version.endsWith('-SNAPSHOT') ? nexusSnapshotRepoUrl : nexusReleaseRepoUrl
+
+            credentials {
+                username = '${nexusLogin}'
+                password = '${nexusPassword}'
+            }
+        }
+    }
+}

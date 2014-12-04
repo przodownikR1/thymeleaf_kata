@@ -1,0 +1,30 @@
+if(project.file("src/main/groovy").exists()){
+   
+    apply plugin: 'groovy'
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.4.+'
+        compile ("org.codehaus.groovy:groovy:2.4.+")
+        testCompile ("org.spockframework:spock-core:+")
+        testCompile ("org.spockframework:spock-spring:+")
+        
+    }
+    compileGroovy {
+        groovyOptions.listFiles = false
+        groovyOptions.optimizationOptions.indy = true
+        // groovyOptions.fork = false
+        // groovyOptions.stacktrace = true
+        // groovyOptions.useAnt = true
+        groovyOptions.fork(memoryMaximumSize: '128M')
+    }
+    println "+++                :${project.name}: [ groovy ] detect."
+    sourceSets {
+        intTest
+        main {
+            groovy { srcDir 'src/main/groovy' }
+        }
+        test {
+            groovy { srcDir 'src/test/groovy' }
+        }
+    }
+}
+
