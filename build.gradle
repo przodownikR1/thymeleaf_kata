@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply from: "scriptGradle/depencencies.gradle"
+apply from: "scriptGradle/sonar.gradle"
 apply plugin: 'spring-boot'
 
 jar {
