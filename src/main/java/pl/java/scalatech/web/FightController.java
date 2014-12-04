@@ -35,56 +35,54 @@ public class FightController {
     private final static String FIGHT_VIEW = "fight/fight";
     private final static String FIGHT_EDIT = "fight/fightEdit";
     private final static String FIGHT_REDIRECT = "redirect:/fight/";
-    
+
     private final @NonNull FightService fightService;
-    
+
     private final @NonNull CountryRepository countryRepository;
-    
+
     private final @NonNull BoxerRepository boxerRepository;
-    
-   
+
     @ModelAttribute("boxers")
-    public Set<Boxer> boxers(){
+    public Set<Boxer> boxers() {
         return Sets.newHashSet(boxerRepository.findAll());
     }
-  
+
     @ModelAttribute("countries")
-    public Set<Country> countries(){
+    public Set<Country> countries() {
         return Sets.newHashSet(countryRepository.findAll());
     }
-    
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String getAllFight(Model model) {
         model.addAttribute(fightService.findAll());
-        log.info("+++++++        {}",model);
+        log.info("+++++++        {}", model);
         return FIGHT_VIEW;
     }
+
     @RequestMapping(method = RequestMethod.GET)
     public String init(Model model) {
         model.addAttribute(new Fight());
         return FIGHT_EDIT;
     }
-    
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     String getCountryById(@PathVariable("id") Long id, Model model) {
         if (id == null) {
             model.addAttribute(new Fight());
-        }else{
+        } else {
             model.addAttribute(fightService.findOne(id));
         }
-        
+
         return FIGHT_EDIT;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable("id") Long id, Model model) {
+    public String delete(@PathVariable("id") Long id) {
         Fight fight = fightService.findOne(id);
         fightService.delete(fight);
         return FIGHT_REDIRECT;
     }
 
-  
     @RequestMapping(value = { "", "/{id}" }, method = RequestMethod.POST)
     public String create(@Valid Fight fight, BindingResult result, Errors errors) {
         log.info("+++  fight :  {}", fight);

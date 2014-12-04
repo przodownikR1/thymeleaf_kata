@@ -25,6 +25,7 @@ import pl.java.scalatech.repository.country.CountryRepository;
 import pl.java.scalatech.service.boxer.BoxerService;
 
 import com.google.common.collect.Sets;
+
 @Controller
 @RequestMapping("/boxer")
 @Slf4j
@@ -33,53 +34,52 @@ public class BoxerController {
     private final static String BOXER_VIEW = "boxer/boxer";
     private final static String BOXER_EDIT = "boxer/boxerEdit";
     private final static String BOXER_REDIRECT = "redirect:/boxer/";
-    
+
     private final @NonNull BoxerService boxerService;
-    
+
     private final @NonNull CountryRepository countryRepository;
-    
+
     @ModelAttribute("divisions")
-    public Division[] divisions(){
+    public Division[] divisions() {
         return Division.values();
     }
-    
+
     @ModelAttribute("countries")
-    public Set<Country> countries(){
+    public Set<Country> countries() {
         return Sets.newHashSet(countryRepository.findAll());
     }
-    
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String getAllBoxer(Model model) {
         model.addAttribute(boxerService.findAll());
-        log.info("+++++++        {}",model);
+        log.info("+++++++        {}", model);
         return BOXER_VIEW;
     }
+
     @RequestMapping(method = RequestMethod.GET)
     public String init(Model model) {
         model.addAttribute(new Boxer());
         return BOXER_EDIT;
     }
-    
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     String getCountryById(@PathVariable("id") Long id, Model model) {
         if (id == null) {
             model.addAttribute(new Boxer());
-        }else{
+        } else {
             model.addAttribute(boxerService.findOne(id));
         }
-        
+
         return BOXER_EDIT;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable("id") Long id, Model model) {
+    public String delete(@PathVariable("id") Long id) {
         Boxer boxer = boxerService.findOne(id);
         boxerService.delete(boxer);
         return BOXER_REDIRECT;
     }
 
-  
     @RequestMapping(value = { "", "/{id}" }, method = RequestMethod.POST)
     public String create(@Valid Boxer boxer, BindingResult result, Errors errors) {
         log.info("+++  boxer :  {}", boxer);
@@ -93,4 +93,3 @@ public class BoxerController {
     }
 
 }
-

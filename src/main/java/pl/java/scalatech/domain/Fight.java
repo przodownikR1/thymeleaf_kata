@@ -1,7 +1,6 @@
 package pl.java.scalatech.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Builder;
+
 @Data
 @Entity
 @Builder
@@ -21,19 +21,18 @@ public class Fight extends PKEntity {
 
     private static final long serialVersionUID = 1L;
     @ManyToOne
-    @JoinColumn(name="winnerId")
+    @JoinColumn(name = "winnerId")
     private Boxer winner;
-    
+
     @ManyToOne
-    @JoinColumn(name="loserId")
+    @JoinColumn(name = "loserId")
     private Boxer loser;
 
     private LocalDate fightDate;
 
     private int roundCount;
-    
-    
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="placeId")
-    private Place place;    
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "placeId")
+    private Place place;
 }

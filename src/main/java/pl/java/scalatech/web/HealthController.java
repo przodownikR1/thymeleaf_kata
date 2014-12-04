@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
-
 @RestController
 @Slf4j
 public class HealthController {
@@ -23,7 +22,7 @@ public class HealthController {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @RequestMapping(value = "/api/appContext", method = RequestMethod.GET,produces="application/json")
+    @RequestMapping(value = "/api/appContext", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<String> appContext() {
         List<String> names = Lists.newArrayList(applicationContext.getBeanDefinitionNames());
         names.sort((String s1, String s2) -> s1.compareTo(s2));

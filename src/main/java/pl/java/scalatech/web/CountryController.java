@@ -26,41 +26,40 @@ public class CountryController {
     private final static String COUNTRY_VIEW = "country/country";
     private final static String COUNTRY_EDIT = "country/countryEdit";
     private final static String COUNTRY_REDIRECT = "redirect:/country/";
-    
+
     private final @NonNull CountryService countryService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String getAllCountry(Model model) {
         model.addAttribute(countryService.findAll());
-        log.info("+++++++        {}",model);
+        log.info("+++++++        {}", model);
         return COUNTRY_VIEW;
     }
+
     @RequestMapping(method = RequestMethod.GET)
     public String init(Model model) {
         model.addAttribute(new Country());
         return COUNTRY_EDIT;
     }
-    
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     String getCountryById(@PathVariable("id") Long id, Model model) {
         if (id == null) {
             model.addAttribute("country", new Country());
-        }else{
+        } else {
             model.addAttribute("country", countryService.findOne(id));
         }
-        
+
         return COUNTRY_EDIT;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable("id") Long id, Model model) {
+    public String delete(@PathVariable("id") Long id) {
         Country country = countryService.findOne(id);
         countryService.delete(country);
         return COUNTRY_REDIRECT;
     }
 
-  
     @RequestMapping(value = { "", "/{id}" }, method = RequestMethod.POST)
     public String create(@Valid Country country, BindingResult result, Errors errors) {
         log.info("+++  country save :  {}", country);

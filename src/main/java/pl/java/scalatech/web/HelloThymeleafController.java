@@ -17,13 +17,11 @@ class HelloThymeleafController {
 
     @RequestMapping("/hello")
     public String test(Model model) {
-       
+
         model.addAttribute("time", LocalDate.now());
         model.addAttribute("message", message);
-        log.info("{}  " , model);
+        log.info("{}  ", model);
         return "hello";
     }
-
-  
 
 }
