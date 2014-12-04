@@ -54,7 +54,7 @@ import pl.java.scalatech.domain.Country;
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private Environment env;
-    @Autowired
+    /*@Autowired
     private Converter<Boxer,String> boxer2StringConverter;
     @Autowired
     private Converter<Country, String> country2StringConverter;
@@ -62,7 +62,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private Converter<String,Boxer> string2BoxerConverter;
     @Autowired
     private Converter<String, Country> string2CountryConverter;
-    
+    */
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();
@@ -158,10 +158,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(boxer2StringConverter);
+       /* registry.addConverter(boxer2StringConverter);
         registry.addConverter(country2StringConverter);
         registry.addConverter(string2BoxerConverter);
-        registry.addConverter(string2CountryConverter);
+        registry.addConverter(string2CountryConverter);*/
     }
 
     @Override
