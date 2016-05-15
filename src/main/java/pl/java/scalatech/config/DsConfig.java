@@ -3,6 +3,8 @@ package pl.java.scalatech.config;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.h2.tools.Server;
@@ -18,6 +20,8 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+
+import lombok.SneakyThrows;
 
 
 @PropertySource("classpath:ds.properties")
@@ -59,15 +63,16 @@ public class DsConfig {
 
     @Bean(name="entityManagerFactory")
     @DependsOn(value = "dataSource")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws SQLException {
+    public EntityManagerFactory entityManagerFactory() throws SQLException {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource(createTcpServer()));
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManagerFactoryBean.setPackagesToScan("pl.java.scalatech.domain");
         entityManagerFactoryBean.setJpaProperties(jpaProperties());
-        return entityManagerFactoryBean;
+        return entityManagerFactoryBean.getObject();
     }
-
+    
+    
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
@@ -85,7 +90,7 @@ public class DsConfig {
     @Bean
     public JpaTransactionManager transactionManager() throws SQLException {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        transactionManager.setEntityManagerFactory(entityManagerFactory());
         transactionManager.setDataSource(dataSource(createTcpServer()));
         return transactionManager;
     }

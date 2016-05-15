@@ -12,8 +12,10 @@ public interface CountryService {
     void delete(Country country);
 
     Country save(Country country);
-    
+
     Country findByCode(String code);
-    
+
     Country findByName(String name);
+
+   /* Country saveWeb(Country country);*/
 }
